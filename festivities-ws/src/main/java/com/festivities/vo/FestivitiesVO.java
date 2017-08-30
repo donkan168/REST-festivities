@@ -37,17 +37,14 @@ public class FestivitiesVO implements Serializable {
 		this.namePlace = dBObjectFutbolista.getString("namePlace");
 	}
 
-	
+	/**
+	 * Constructor method
+	 * @param document
+	 */
 	public FestivitiesVO(DBObject document) {
 		this.nameEvent =   (String) document.get(EnumFestivity.NAME_EVENT.name());
 		this.namePlace =   (String) document.get(EnumFestivity.NAME_PLACE.name());
 		try {
-//			if (((Date) document.get(EnumFestivity.START_DATE.name())!=null)) {
-//				this.startDate = DateUtils.parse(DateUtils.format((Date) document.get(EnumFestivity.START_DATE.name()), DateUtils.DATE_PATTERN_SIMPLE), DateUtils.DATE_PATTERN_SIMPLE);
-//			}
-//			if (((Date) document.get(EnumFestivity.START_DATE.name()) != null)) {
-//				this.endDate = DateUtils.parse(DateUtils.format((Date) document.get(EnumFestivity.END_DATE.name()), DateUtils.DATE_PATTERN_SIMPLE), DateUtils.DATE_PATTERN_SIMPLE);
-//			}
 
 			//Time in UTC
 			if ((document.get(EnumFestivity.START_DATE.name())!=null)) {
