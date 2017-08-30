@@ -1,0 +1,18 @@
+package com.rest.main;
+
+@Path("/rest")
+public class MainRest {
+
+ static final String JSON_UTF_8 = "application/json;charset=UTF-8";
+ protected Gson gson;
+
+ @GET
+ @Path("/user/{name}")
+ @Produces({JSON_UTF_8})
+ public Object getUserByName(@PathParam("name") String name){
+  Usuario user = new Usuario(name, "Hernández");
+  gson = new GsonBuilder().disableHtmlEscaping().create();
+
+  return gson.toJson(user);
+ }
+}

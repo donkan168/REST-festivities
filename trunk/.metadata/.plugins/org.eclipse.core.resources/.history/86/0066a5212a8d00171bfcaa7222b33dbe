@@ -1,0 +1,91 @@
+package com.festivities.persistence;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.Document;
+
+import com.festivities.enumeration.EnumFestivity;
+import com.festivities.vo.FestivitiesVO;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.client.MongoCursor;
+
+import junit.framework.Assert;
+
+/**
+ * <b>Descripcion: </b>DAO generico que presta los servicios 
+ * CRUD con base de datos 
+ * @author Mauricio Salamanca - donkan168@gmail.com
+ * 	
+ * 29/08/2017 2017  
+ */
+public class GenericDAO {
+
+	/**Instancia de DB */
+	DB db; 
+	
+	/**
+	 * <b>Descripcion: </b> Metodo que almacena un registro
+	 * (Los registros se llaman documento en MongoDB)
+	 * @param documento
+	 * @param coleccion
+	 * @throws Exception
+	 */
+	public void guardarDocumento(BasicDBObject documento, String coleccion) throws Exception {
+		DBConexion conn = null;
+		try {
+			conn = DBConexion.getInstance();
+			db = conn.getConexion();
+			db.getCollection(coleccion).save(documento);
+			System.out.println("El documento fue guardado exitosamente");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("No es posible guardar la informacion en este momento");
+		}finally {
+		}
+	}
+
+	public List<FestivitiesVO> getDocuments(FestivitiesVO festivity) {
+		DBConexion conn = null; 
+		DBCursor cursor = null;
+		System.out.println("into getDocuments");
+		List<FestivitiesVO> listFestivitiesVO = new ArrayList<FestivitiesVO>();
+	        try {  
+	        	conn = DBConexion.getInstance();
+				db = conn.getConexion();
+				BasicDBObject  query = new BasicDBObject(EnumFestivity.NAME_EVENT.name(), festivity.getNameEvent());
+//				query.put(key, value)
+				System.out.println("---------aca: "+festivity.getNameEvent());
+//				if (festivity.getNameEvent() != null && !festivity.getNameEvent().isEmpty()) {
+//					query.append("nameEvent", festivity.getNameEvent());
+//				}
+//				if (festivity.getNamePlace() != null && !festivity.getNamePlace().isEmpty()) {
+//					query.append("namePlace", festivity.getNamePlace());
+//				}
+//				if (festivity.getStartDate() != null ) {
+//					query.append("startDate", festivity.getStartDate());
+//				}
+//				if (festivity.getEndDate() != null ) {
+//					query.append("endDate", festivity.getEndDate());
+//				}
+	            cursor = db.getCollection("FESTIVITY").find(query);
+	            
+	            while(cursor.hasNext()) {  
+	                DBObject document = cursor.next();  
+	                FestivitiesVO festivitiesVO = new FestivitiesVO(document);
+	                listFestivitiesVO.add(festivitiesVO);
+	            }  
+	        } finally {  
+	            if (cursor != null){  
+	                cursor.close();  
+	            }  
+	        }  
+	        return  listFestivitiesVO;
+	}
+	
+	
+}

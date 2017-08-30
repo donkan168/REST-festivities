@@ -1,0 +1,56 @@
+package com.festivities.ws.rest.business;
+
+import java.util.List;
+
+import com.festivities.constant.ConstantColletions;
+import com.festivities.persistence.GenericDAO;
+import com.festivities.vo.FestivitiesVO;
+
+public class FestivitiyServiceBean {
+
+	
+	/**Instancia del DAO generico para CRUD */
+	private GenericDAO dao;
+	
+	/**
+	 *<b>Descripcion: </b>Constructor de la clase
+	 */
+	public FestivitiyServiceBean() {
+		dao = new GenericDAO();
+	}
+	
+	/**
+	 * <b>Descripcion: </b> Metodo que guarda una persona
+	 * @param persona
+	 * @throws Exception
+	 */
+	public void createFestivity(final FestivitiesVO festivity) throws Exception {
+		dao.guardarDocumento(festivity.festivityToBasicDBObject(), ConstantColletions.FESTIVITY);
+	}
+
+	public List<FestivitiesVO> queryFestivity(FestivitiesVO festivity) {
+		List<FestivitiesVO> listaFestivities = dao.getDocuments(festivity);
+		return listaFestivities;
+	}
+	
+	public void updateFestivity(final FestivitiesVO festivity) throws Exception {
+		dao.guardarDocumento(festivity.festivityToBasicDBObject(), ConstantColletions.FESTIVITY);
+	}
+	
+	
+	
+//	public void queryFestivity() {
+//		
+//		DBObject query = new BasicDBObject("demarcacion", new BasicDBObject("$regex", "Delantero"));
+//		DBCursor cursor = dao.find(query);
+//		try {
+//			while (cursor.hasNext()) {
+//				FestivitiesVO futbolista = new FestivitiesVO((BasicDBObject) cursor.next());
+//				System.out.println(futbolista.toString());
+//			}
+//		} finally {
+//			cursor.close();
+//		}
+//	}
+	
+}

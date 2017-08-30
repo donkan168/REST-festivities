@@ -1,0 +1,10 @@
+
+public class FestivitiyServiceBeanTest {
+
+	@Test
+	public void createFestivityTest() {
+		// TODO Auto-generated method stub
+
+	}
+	
+}

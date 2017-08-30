@@ -1,0 +1,22 @@
+package com.model;
+
+import com.festivities.ws.rest.business.FestivitiyServiceBean;
+
+import junit.framework.TestCase;
+
+public class FestivityServiceBeanTest extends TestCase {
+
+	public void testCreateFestivity() {
+		FestivitiyServiceBean serviceBean = new FestivitiyServiceBean();
+		serviceBean.createFestivity(festivity);
+	}
+
+	public void testQueryFestivity() {
+		fail("Not yet implemented");
+	}
+
+	public void testUpdateFestivity() {
+		fail("Not yet implemented");
+	}
+
+}

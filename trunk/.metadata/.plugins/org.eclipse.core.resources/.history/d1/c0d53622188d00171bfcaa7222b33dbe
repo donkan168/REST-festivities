@@ -1,0 +1,88 @@
+package com.festivities.vo;
+
+import java.util.Date;
+
+import com.festivities.enumeration.EnumFestivity;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+
+public class FestivitiesVO {
+
+	
+	private String nameEvent;
+	private String namePlace;
+	private Date startDate;
+	private Date endDate;
+	
+	public FestivitiesVO() {
+		super();
+	}
+	
+	public FestivitiesVO(BasicDBObject dBObjectFutbolista) {
+		this.nameEvent = dBObjectFutbolista.getString("nameEvent");
+		this.namePlace = dBObjectFutbolista.getString("namePlace");
+	}
+
+	
+	public FestivitiesVO(DBObject document) {
+		this.nameEvent = (String) document.getString("nameEvent");
+		this.namePlace =  (String) document.getString("namePlace");
+	}
+
+	public BasicDBObject festivityToBasicDBObject() {
+		BasicDBObject documento =new BasicDBObject();
+		documento.append(EnumFestivity.NAME_EVENT.name(), nameEvent);
+		documento.append(EnumFestivity.NAME_PLACE.name(), namePlace);
+		
+		return documento;
+	}
+	
+	public BasicDBObject toDBObjectFutbolista() {
+
+		// Creamos una instancia BasicDBObject
+		BasicDBObject dBObjectFestivity = new BasicDBObject();
+
+		dBObjectFestivity.append("nameEvent", this.getNameEvent());
+		dBObjectFestivity.append("namePlace", this.getNamePlace());
+
+		return dBObjectFestivity;
+	}
+	
+
+	public String getNameEvent() {
+		return nameEvent;
+	}
+
+	public void setNameEvent(String nameEvent) {
+		this.nameEvent = nameEvent;
+	}
+
+	public String getNamePlace() {
+		return namePlace;
+	}
+
+	public void setNamePlace(String namePlace) {
+		this.namePlace = namePlace;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	@Override
+	public String toString() {
+		return "NameEvent: " + this.getNameEvent() + "NamePlace: " + this.getNamePlace();
+	}
+}

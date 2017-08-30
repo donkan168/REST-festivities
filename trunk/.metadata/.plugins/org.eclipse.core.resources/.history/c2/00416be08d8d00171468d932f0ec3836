@@ -1,0 +1,14 @@
+package com.festivities.enumeration;
+
+public enum EnumFestivity {
+
+	FESTIVITY,
+	
+	NAME_EVENT,
+	
+	NAME_PLACE, 
+	
+	START_DATE,
+	
+	END_DATE;
+}

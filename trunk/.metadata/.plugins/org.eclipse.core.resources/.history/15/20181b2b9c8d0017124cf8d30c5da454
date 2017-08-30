@@ -1,0 +1,58 @@
+package com.festivities.test.rest.ws;
+
+import java.util.List;
+
+import com.festivities.vo.FestivitiesVO;
+import com.festivities.ws.rest.business.FestivitiyServiceBean;
+import com.festivities.ws.rest.service.ServiceRestFestivities;
+
+import junit.framework.TestCase;
+
+public class ServiceRestFestivitiesTest extends TestCase {
+
+	public void testCreateFestivity() {
+		ServiceRestFestivities serviceBean = new ServiceRestFestivities();
+
+		try {
+			serviceBean.createFestivity(null, null, null, "test Event rest services", "Bogota north", "17-09-2017", "12-10-2017");
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(Boolean.FALSE);
+		}
+		assertTrue(Boolean.TRUE);
+	}
+
+	public void testQueryFestivity() {
+		ServiceRestFestivities serviceBean = new ServiceRestFestivities();
+
+		FestivitiesVO festivity = new FestivitiesVO();
+		festivity.setNamePlace("some place");
+		List<FestivitiesVO> listFestivities = null;
+		try {
+			listFestivities = serviceBean.queryFestivity(null, null, null, null, "Bogota north", null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(Boolean.FALSE);
+		}
+		assertNotNull(listFestivities);
+
+	}
+
+	public void testUpdateFestivity() {
+		ServiceRestFestivities serviceBean = new ServiceRestFestivities();
+
+		FestivitiesVO festivity = new FestivitiesVO();
+		festivity.setNameEvent("NEW test Event");
+		festivity.setNamePlace("some place");
+		festivity.setStartDate("27-08-2017");
+		festivity.setEndDate("31-08-2017");
+		try {
+			serviceBean.updateFestivity(festivity );
+		} catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(Boolean.FALSE);
+		}
+		assertTrue(Boolean.TRUE);
+	}
+
+}

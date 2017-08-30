@@ -1,0 +1,193 @@
+package com.festivities.ws.rest.service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
+
+import com.festivities.vo.FestivitiesVO;
+import com.festivities.ws.rest.business.FestivitiyServiceBean;
+import com.festivities.ws.util.DateUtils;
+import com.festivities.ws.util.ObjectSetResponse;
+import com.festivities.ws.util.UtilitarioRest;
+import com.google.gson.Gson;
+
+/**
+ * <b>Descripcion: </b>Class for expose the services in restful
+ * @author Mauricio Salamanca - donkan168@gmail.com
+ * 	
+ * 29/08/2017 2017  
+ */
+@Path("/adminFestivities")
+public class ServiceRestFestivities {	
+
+
+	/** Attributes*/
+	private static final Logger LOGGER = Logger.getLogger(ServiceRestFestivities.class.getName());
+	protected Gson gson;
+	private FestivitiyServiceBean service = new FestivitiyServiceBean();
+	private UtilitarioRest responseUtil;
+
+	/**
+	 * Constructor method
+	 */
+	public ServiceRestFestivities() {
+		responseUtil= new UtilitarioRest();
+	}
+
+	/**
+	 * Public method for the ceation of one festivities
+	 * @param servletRequest
+	 * @param servletResponse
+	 * @param uriInfo
+	 * @param nameEvent
+	 * @param namePlace
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@POST
+	@Path("/createFestivity/{nameEvent: [^/]*?}/{namePlace: [^/]*?}/{startDate: [^/]*?}/{endDate: [^/]*?}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Object createFestivity(   @Context HttpServletRequest servletRequest, 
+									@Context HttpServletResponse servletResponse, 
+									@Context UriInfo uriInfo,
+									@PathParam("nameEvent") String nameEvent, 
+									@PathParam("namePlace") String namePlace,
+									@PathParam("startDate") String startDate, 
+									@PathParam("endDate") String endDate){
+		FestivitiesVO festivity = new FestivitiesVO();
+		festivity.setNameEvent(nameEvent);
+		festivity.setNamePlace(namePlace);
+		festivity.setStartDate(startDate);
+		festivity.setEndDate(endDate);
+
+		ObjectSetResponse dataResponse = new ObjectSetResponse();
+
+		try {
+			service.createFestivity(festivity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return responseUtil.createResponseFail(new Date(), dataResponse, e);
+		}
+		dataResponse.setLastModified(new SimpleDateFormat(DateUtils.DATE_PATTERN, Locale.US).format(new Date()));
+
+		return responseUtil.createResponseOK(new Date(), dataResponse);
+	}
+
+	/**
+	 * Public method for the searches of the festivities
+	 * @param servletRequest
+	 * @param servletResponse
+	 * @param uriInfo
+	 * @param nameEvent
+	 * @param namePlace
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@GET
+	@Path("/query")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Object queryFestivity(   @Context HttpServletRequest servletRequest, 
+									@Context HttpServletResponse servletResponse, 
+									@Context UriInfo uriInfo,
+									@QueryParam("nameEvent") String nameEvent, 
+									@QueryParam("namePlace") String namePlace,
+									@QueryParam("startDate") String startDate, 
+									@QueryParam("endDate") String endDate){
+
+		ObjectSetResponse dataResponse = new ObjectSetResponse();
+		FestivitiesVO festivity = new FestivitiesVO();
+		festivity.setNameEvent(nameEvent);
+		festivity.setNamePlace(namePlace);
+		try {
+			Date startDateTemp = null;
+			Date endDateTemp = null;
+			
+			if (startDate != null && !startDate.isEmpty()) {
+				startDateTemp = DateUtils.parse(startDate);
+					festivity.setStartDate(DateUtils.format(startDateTemp, DateUtils.DATE_PATTERN_SIMPLE));
+			}
+			if (endDate != null && !endDate.isEmpty()) {
+				endDateTemp = DateUtils.parse(endDate);
+				festivity.setEndDate(DateUtils.format(endDateTemp, DateUtils.DATE_PATTERN_SIMPLE));
+			}
+			
+			//business Validation
+			if (startDateTemp != null && endDateTemp !=null) {
+				if (startDateTemp.after(endDateTemp)) {
+					return responseUtil.createResponseFail(new Date(), dataResponse, null);
+				}
+			}
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			LOGGER.log(Level.SEVERE, "FALLA" + e1.getMessage());
+			return responseUtil.createResponseFail(new Date(), dataResponse, e1);
+		}	
+		
+		
+		try {
+			List<FestivitiesVO> listaFestivities = service.queryFestivity(festivity);
+			dataResponse.setData(listaFestivities);
+			if (listaFestivities == null || listaFestivities.isEmpty()) {
+				return responseUtil.createResponseNotFound(new Date(), dataResponse);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return responseUtil.createResponseFail(new Date(), dataResponse, e);
+		}
+		dataResponse.setLastModified(new SimpleDateFormat(DateUtils.DATE_PATTERN, Locale.US).format(new Date()));
+
+		return responseUtil.createResponseOK(new Date(), dataResponse);
+	}
+	
+	/**
+	 * Public method for the updates of the festivities
+	 * @param servletRequest
+	 * @param servletResponse
+	 * @param uriInfo
+	 * @param festivity
+	 * @return
+	 */
+	@PUT
+	@Path("/updateFestivity")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
+	public Object updateFestivity(   @Context HttpServletRequest servletRequest, 
+									@Context HttpServletResponse servletResponse, 
+									@Context UriInfo uriInfo,
+									FestivitiesVO festivity){
+
+		ObjectSetResponse dataResponse = new ObjectSetResponse();
+
+		try {
+			service.updateFestivity(festivity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return responseUtil.createResponseFail(new Date(), dataResponse, e);
+		}
+		dataResponse.setLastModified(new SimpleDateFormat(DateUtils.DATE_PATTERN, Locale.US).format(new Date()));
+
+		return responseUtil.createResponseOK(new Date(), dataResponse);
+	}
+
+	
+}
