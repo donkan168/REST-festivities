@@ -1,0 +1,5 @@
+package com.festivities.ws.rest.business;
+
+public interface IFestivitiyService {
+
+}

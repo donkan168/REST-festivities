@@ -1,0 +1,9 @@
+package com.festivities.ws.rest.business;
+
+import com.festivities.vo.FestivitiesVO;
+
+public interface IFestivitiyService {
+
+	
+	public void createFestivity(final FestivitiesVO festivity);
+}

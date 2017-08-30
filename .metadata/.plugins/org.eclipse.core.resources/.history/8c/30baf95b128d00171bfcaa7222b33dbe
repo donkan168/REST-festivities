@@ -1,0 +1,130 @@
+package com.festivities.ws.util;
+
+import java.io.Serializable;
+import java.util.Set;
+
+import org.codehaus.jackson.annotate.JsonProperty;
+
+public class ObjectSetResponse implements Serializable {
+
+	private static final long serialVersionUID = 3261830607267887570L;
+	
+	private String lastModified;
+	Integer totalPaginas;
+	private Integer paginaSolicitada;
+	private Links links;
+	private Set<Object> datos;
+	private String mensaje;
+	
+	@JsonProperty("Last-Modified")
+	public String getLastModified() {
+		return lastModified;
+	}
+	/**
+	 * @param lastModified
+	 */
+	public void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
+	}
+	/**
+	 * @return
+	 */
+	public Integer getTotalPaginas() {
+		return totalPaginas;
+	}
+	/**
+	 * @param totalPaginas
+	 */
+	public void setTotalPaginas(Integer totalPaginas) {
+		this.totalPaginas = totalPaginas;
+	}
+	/**
+	 * @return
+	 */
+	public Integer getPaginaSolicitada() {
+		return paginaSolicitada;
+	}
+	/**
+	 * @param paginaSolicitada
+	 */
+	public void setPaginaSolicitada(Integer paginaSolicitada) {
+		this.paginaSolicitada = paginaSolicitada;
+	}
+	/**
+	 * @return
+	 */
+	public Links getLinks() {
+		return links;
+	}
+	/**
+	 * @param links
+	 */
+	public void setLinks(Links links) {
+		this.links = links;
+	}
+	
+	/**
+	 * Metodo que retorna el valor de datos
+	 * @return the datos type {@link List<ComiteDTO>}
+	 */
+	public Set<Object> getDatos() {
+		return datos;
+	}
+	/**
+	 * Metodo que asigna el valor de datos
+	 *
+	 * @param datos allow object {@link List<ComiteDTO>} to set
+	 */
+	public void setDatos(Set<Object> datos) {
+		this.datos = datos;
+	}
+	
+	/**
+	 * Gets the value of the mensaje property 
+	 * 
+	 * @return the mensaje type {@link String}
+	 */
+	public String getMensaje() {
+		return mensaje;
+	}
+	/**
+	 * Sets the value of the mensaje
+	 *
+	 * @param mensaje allow object {@link String} to set
+	 */
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
+	public static class Links implements Serializable {
+
+		
+		
+		/** Atributo */
+		private static final long serialVersionUID = 1L;
+		
+		private Link[] paginasDatos;
+		
+		public Links(Link[] paginasDatos) {
+			super();
+			this.paginasDatos = paginasDatos;
+		}
+
+		/**
+		 * @return
+		 */
+		public Link[] getPaginasDatos() {
+			return paginasDatos;
+		}
+
+		/**
+		 * @param paginasDatos
+		 */
+		public void setPaginasDatos(Link[] paginasDatos) {
+			this.paginasDatos = paginasDatos;
+		}
+	}
+	
+	
+
+}

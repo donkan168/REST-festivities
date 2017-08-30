@@ -1,0 +1,7 @@
+package com.festivities.constant;
+
+public class ConstantColletions {
+
+	public static final String FESTIVITY = "FESTIVITY";
+
+}

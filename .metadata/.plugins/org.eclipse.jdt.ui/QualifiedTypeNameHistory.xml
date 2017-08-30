@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.ws.rs.Path"/>
+<fullyQualifiedTypeName name="festivities.vo.VOFestivities"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.Application"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Produces"/>
+<fullyQualifiedTypeName name="com.festivities.ws.rest.business.FestivitiyService"/>
+<fullyQualifiedTypeName name="javax.ws.rs.GET"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoClient"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.Link"/>
+<fullyQualifiedTypeName name="com.festivities.util.UtilitarioRest"/>
+<fullyQualifiedTypeName name="com.festivities.ws.util.ObjectSetResponse"/>
+<fullyQualifiedTypeName name="java.util.Locale"/>
+<fullyQualifiedTypeName name="javax.ws.rs.POST"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="com.festivities.ws.util.Excepcions"/>
+<fullyQualifiedTypeName name="java.util.logging.Level"/>
+<fullyQualifiedTypeName name="com.grupoaval.adminBusiness.rest.schema.Fallo"/>
+<fullyQualifiedTypeName name="com.festivities.ws.util.Fallo"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.festivities.persistence.GenericDAO"/>
+<fullyQualifiedTypeName name="org.bson.Document"/>
+<fullyQualifiedTypeName name="com.mongodb.client.MongoCursor"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Consumes"/>
+<fullyQualifiedTypeName name="javax.ws.rs.PUT"/>
+<fullyQualifiedTypeName name="com.festivities.enumeration.EnumFestivity"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="com.mongodb.client.model.Filters"/>
+<fullyQualifiedTypeName name="com.mongodb.client.model.Updates"/>
+<fullyQualifiedTypeName name="com.mongodb.DBObject"/>
+<fullyQualifiedTypeName name="com.mongodb.BasicDBObject"/>
+<fullyQualifiedTypeName name="javax.ws.rs.QueryParam"/>
+<fullyQualifiedTypeName name="java.util.TimeZone"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="com.festivities.ws.util.DateUtils"/>
+<fullyQualifiedTypeName name="com.festivities.vo.FestivitiesVO"/>
+<fullyQualifiedTypeName name="com.festivities.ws.rest.business.FestivitiyServiceBean"/>
+<fullyQualifiedTypeName name="com.festivities.ws.rest.service.ServiceRestFestivities"/>
+</qualifiedTypeNameHistroy>

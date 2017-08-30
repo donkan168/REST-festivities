@@ -1,0 +1,81 @@
+package com.festivities.persistence;
+
+import com.mongodb.DB;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+
+/**
+ * <b>Descripcion: </b>Singleton presta los servicios de conexion a BD 
+ * @author Mauricio Salamanca - donkan168@gmail.com
+ * 	
+ * 29/08/2017 2017  
+ */
+public class DBConexion {
+
+
+	/**Instancia de la clase */
+	private static DBConexion INSTANCE = null;
+	
+	/**instancia de DB */
+	private static DB db;
+	
+	/**instancia del cliente mongo */
+	private static MongoClient mongoClient;
+
+	/**
+	 *<b>Descripcion: </b>Constructor de la clase
+	 */
+	private DBConexion() {
+		try {
+//			MongoClientURI MonURI = new MongoClientURI("mongodb://userDesarrollo:123@localhost/?authSource=db1&authMechanism=MONGODB-CR");
+//			MongoClientURI MonURI = new MongoClientURI("mongodb://developer:1234@localhost/?authSource=festivities");
+			MongoClientURI MonURI = MongoClientURI("mongodb://username:pwd@localhost/?authMechanism=SCRAM-SHA-1")
+			Mongo mongo = Mongo.Holder.singleton().connect(MonURI );
+			db = mongo.getDB("festivities");
+			//		mongo.close();
+			System.out.println("Documento guardado exitosamente");
+		} catch (Exception e) {
+			System.out.println("No es posible obtener la conexion");
+		}
+	}
+	
+
+	/**
+	 * <b>Descripcion: </b> Metodo que obtiene el objeto DB
+	 * @return
+	 */
+	public static DB getConexion() {
+		return db;
+	}
+
+	/**
+	 * <b>Descripcion: </b> Metodo que obtiene la instancia de la clase
+	 * @return
+	 */
+	public static DBConexion getInstance() {
+		if (INSTANCE == null) 
+			INSTANCE =  new DBConexion();
+
+		return INSTANCE;
+	}
+
+	/**
+	 * <b>Descripcion: </b> Metodo que se encarga de cerrar la conexion
+	 */
+	public static void closeConnection() {
+		try {
+			mongoClient.close();
+		} catch (Exception e) {
+			System.out.println("Error al cerrar la conexi�n.");
+		}
+	}
+
+	/**
+	 * <b>Descripcion: </b> Metodo que se encarga del borrado de la instancia
+	 */
+	public static void delInstance() {
+		INSTANCE = null;
+		closeConnection();
+	}
+}

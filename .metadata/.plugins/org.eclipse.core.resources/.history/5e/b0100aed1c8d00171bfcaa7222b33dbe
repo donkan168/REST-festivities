@@ -1,0 +1,44 @@
+/**
+ * 
+ */
+package com.grupoaval.adminBusiness.rest.schema;
+
+/**
+ * 
+ * <p>Description: </p>
+ * <b>IBM. Global Bussiness Services Colombia.</b>
+ * <Grupo Aval (Bogota Colombia).<
+ * <Vicepresidencia de operaciones.<
+ *
+ * @author <A HREF="mailto:ombohorq@co.ibm.com">Oscar Bohorquez</A> <p>
+ * <b>Fecha de creación(dd/mmm/aaaa): </b> [Dec 7, 2016]
+ *
+ * @version [1.0, Dec 7, 2016]
+ *
+ */
+public class Fallo {
+	
+	private String descripcionError;
+
+	public Fallo(){}
+	
+	public Fallo(String descripcionError) {
+		super();
+		this.descripcionError = descripcionError;
+	}
+
+	/**
+	 * @return the descripcionError
+	 */
+	public String getDescripcionError() {
+		return descripcionError;
+	}
+
+	/**
+	 * @param descripcionError the descripcionError to set
+	 */
+	public void setDescripcionError(String descripcionError) {
+		this.descripcionError = descripcionError;
+	}
+
+}

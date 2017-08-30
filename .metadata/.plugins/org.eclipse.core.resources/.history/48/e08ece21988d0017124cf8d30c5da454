@@ -1,0 +1,30 @@
+package com.model;
+
+import com.festivities.vo.FestivitiesVO;
+import com.festivities.ws.rest.business.FestivitiyServiceBean;
+
+import junit.framework.TestCase;
+
+public class FestivityServiceBeanTest extends TestCase {
+
+	public void testCreateFestivity() {
+		FestivitiyServiceBean serviceBean = new FestivitiyServiceBean();
+		
+		FestivitiesVO festivity = new FestivitiesVO();
+		festivity.setNameEvent("testEvent");
+		festivity.setNamePlace("some place");
+		festivity.setStartDate("27-08-2017");
+		festivity.setEndDate("29-08-2017");
+		serviceBean.createFestivity(festivity );
+		assertTrue(true);
+	}
+
+	public void testQueryFestivity() {
+		fail("Not yet implemented");
+	}
+
+	public void testUpdateFestivity() {
+		fail("Not yet implemented");
+	}
+
+}

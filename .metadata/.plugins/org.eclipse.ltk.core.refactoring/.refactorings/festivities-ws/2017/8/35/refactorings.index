@@ -1,0 +1,25 @@
+1504045279148	Delete element
+1504045442759	Delete element
+1504045648666	Delete elements
+1504046272151	Rename type 'FestivitiyService'
+1504048979151	Delete element
+1504049103537	Delete element
+1504049468385	Rename package 'com.festivities.util'
+1504049701403	Rename field 'mensaje'
+1504049706494	Rename field 'datos'
+1504053331911	Rename type 'Excepciones'
+1504055118398	Rename method 'errorInterno'
+1504060943629	Rename method 'crearResponseNotFound'
+1504060960554	Rename method 'crearRespuestaFallida'
+1504060972728	Rename method 'crearRespuestaOK'
+1504106307035	Rename source folder 'src/test/jsva'
+1504106667851	Delete element
+1504107719210	Rename package 'com.model'
+1504108287724	Rename package 'com.festivities.model'
+1504108294312	Rename package 'com.festivities.rest.ws'
+1504108299398	Copy compilation unit
+1504108314720	Delete element
+1504108347119	Rename type 'FestivityServiceBeanTest'
+1504113677828	Rename local variable 'mensajeInterno'
+1504113683334	Rename local variable 'entidad'
+1504113764493	Rename local variable 'entidad'

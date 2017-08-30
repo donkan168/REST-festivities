@@ -1,0 +1,7 @@
+
+/**
+ * <b>Description: </b>Class for manage the exception fails  
+ * @author Mauricio Salamanca - donkan168@gmail.com
+ * 	
+ * 29/08/2017 2017  
+ */

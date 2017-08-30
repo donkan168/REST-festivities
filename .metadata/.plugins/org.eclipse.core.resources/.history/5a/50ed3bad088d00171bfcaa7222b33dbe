@@ -1,0 +1,5 @@
+package com.rest.classes;
+
+public class Usuario {
+
+}

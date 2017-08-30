@@ -1,0 +1,125 @@
+/**
+ * 
+ */
+package com.festivities.util;
+
+import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
+
+
+public static class UtilitarioRest {
+	
+	/** Constantes **/	
+	private static final int MAX_AGE = 900;	
+	
+	/** Constructores **/	
+	public UtilitarioRest() {
+	}
+	
+	
+	/**
+	 * @param ltpaCookie
+	 * @param lastModified
+	 * @param entidad
+	 * @param location
+	 * @return response
+	 */
+	public Response crearRespuestaCreado(Cookie ltpaCookie,  Date lastModified, Object entidad,
+			URI location){
+		
+		ResponseBuilder response = null;
+		NewCookie newCookie      = null;
+		
+		CacheControl cacheControl = new CacheControl();
+		cacheControl.setMaxAge(MAX_AGE); // Expira caché después de MAX_AGE segundos.
+		cacheControl.setPrivate(true); // Los proxies no deben cachear
+		
+	    response =  Response.status(Status.CREATED).entity(entidad).cacheControl(cacheControl)
+					.lastModified(lastModified).language("es-CO").location(location);		
+	    if (ltpaCookie != null) {
+	    	
+	    	newCookie = new NewCookie(ltpaCookie);
+	    	response.cookie(newCookie);
+	    }
+
+		return response.build();		
+	}
+
+
+	/**
+	 * @param ltpaCookie
+	 * @param lastModified
+	 * @param entidad
+	 * @return response
+	 */
+	public Response crearRespuestaOK(Cookie ltpaCookie,  Date lastModified, Object entidad){
+		
+		ResponseBuilder response = null;
+		
+		CacheControl cacheControl = new CacheControl();
+		cacheControl.setMaxAge(MAX_AGE); // Expira caché después de MAX_AGE segundos.
+		cacheControl.setPrivate(true); // Los proxies no deben cachear
+		
+	    response =  Response.status(Status.OK).entity(entidad).cacheControl(cacheControl)
+					.lastModified(lastModified).language("es-CO");		
+
+		return response.build();		
+	}
+	
+	/**
+	 * genera los links del recurso, referente a las acciones y la ruta absoluta.
+	 * 
+	 * @param uri
+	 * @return links
+	 */	
+		
+	
+	public boolean validarIfModifiedSince(String sIfModifiedSince, Date modificacionRecurso) throws ParseException {
+		if(sIfModifiedSince != null && modificacionRecurso !=  null){
+			SimpleDateFormat fo = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US);
+			String modFecha = fo.format(modificacionRecurso);
+			Date compFecha = fo.parse(modFecha);
+			Date iffModifiedSince = fo.parse(sIfModifiedSince);
+				if(compFecha.after(iffModifiedSince)){
+
+					return false;
+
+				} else {
+
+					return true;
+
+				}
+			}
+			return false;
+		}
+
+	public boolean validarIfUnmodifiedSince(String sIfUnmodifiedSince, Date modificacionRecurso) throws ParseException {
+		if(sIfUnmodifiedSince != null && modificacionRecurso !=  null){
+			SimpleDateFormat fo = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US);
+			String modFecha = fo.format(modificacionRecurso);
+			Date compFecha = fo.parse(modFecha);
+			Date iffUnodifiedSince = fo.parse(sIfUnmodifiedSince);
+
+			if(compFecha.equals(iffUnodifiedSince)){
+
+				return false;
+
+			} else {
+
+				return true;
+
+			}
+		}
+		return true;
+	}
+}
